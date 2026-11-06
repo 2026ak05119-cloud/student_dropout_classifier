@@ -16,7 +16,7 @@ Universities lose students to dropout, and the earlier a struggling student is i
   - Precision, Recall and F1 are weighted averages across the three classes; AUC is one-vs-rest weighted.
 
 ## c. GitHub Repository Link
-<>
+<https://github.com/2026ak05119-cloud/student_dropout_classifier/tree/main>
 
 ## d. Models Used
 

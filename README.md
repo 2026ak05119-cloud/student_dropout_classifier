@@ -42,7 +42,7 @@ Settings: Logistic Regression (`max_iter=2000`), Decision Tree (`max_depth=8`), 
 | **Overall winner for this dataset** | **Logistic Regression.** It leads on accuracy, precision, recall, F1 and MCC, and ties for the best AUC. Because the Enrolled class is only about 18% of the data, weighted F1 and MCC matter more than accuracy alone, and it wins on both. SVM is a close runner-up. |
 
 ## Streamlit App
-- **Live app:** <>
+- **Live app:** <https://studentdropoutclassifier-5gxenasqqhyg2qurs4jyy4.streamlit.app/>
 - **Features:** CSV upload (test data only), model selection dropdown, evaluation metrics (Accuracy, AUC, Precision, Recall, F1, MCC), confusion matrix, classification report, and a comparison of all five models on the uploaded file. Models are loaded from the `model/` folder and are never retrained in the app.
 
 ## Repository Structure

@@ -1,7 +1,7 @@
 # Student Dropout and Academic Success Classifier
 
 ## a. Problem Statement
-Universities lose students to dropout, and the earlier a struggling student is identified, the more time there is to help them. This project builds and compares five classification models that predict, for each student, one of three outcomes at the end of the normal course duration: **Dropout**, **Enrolled** or **Graduate**. The inputs are enrollment details, demographic and socio-economic factors, and first- and second-semester academic performance. This is a three-class (multi-class) problem with imbalanced classes. A Streamlit app lets anyone upload a test CSV, choose a trained model and inspect its performance.
+Some students drop out of college, and it would help a lot if the college could spot them early and support them. In this project I use student data (admission details, family background, fee status and marks from the first two semesters) to predict whether a student will **Drop out**, stay **Enrolled**, or **Graduate**. I trained five different models on the same data, compared them using six metrics, and built a small web app where anyone can upload test data, pick a model and see how well it performs.
 
 ## b. Dataset Description
 - **Source:** UCI Machine Learning Repository, *Predict Students' Dropout and Academic Success* (https://archive.ics.uci.edu/dataset/697)
@@ -34,12 +34,12 @@ Settings: Logistic Regression (`max_iter=2000`), Decision Tree (`max_depth=8`), 
 
 | ML Model Name | Observation about model performance |
 |---|---|
-| Logistic Regression | Best model on accuracy (0.7672), precision, recall, F1 (0.7563) and MCC (0.6138). A linear decision boundary on scaled and one-hot encoded features is enough for this data, and it is fast and easy to interpret. |
-| Decision Tree | Accuracy 0.7198 and the lowest AUC (0.8272) among the strong models. A single tree with depth limited to 8 gives coarse probability estimates, which hurts AUC, and it is more sensitive to the particular training sample than the linear models. Its strength is interpretability. |
-| KNN | Accuracy 0.7153 and weighted F1 0.6988, the lowest F1 of the first four models. Distance-based voting degrades with many one-hot columns and with the imbalanced classes, since the larger classes dominate the neighbourhood votes. |
-| Naive Bayes | With default settings it scored only 0.2441 accuracy. After tuning `var_smoothing` to 0.1 with cross-validation on the training set it reached 0.6893 accuracy and 0.4865 MCC, the weakest of the five. Its assumption that features are independent is a poor fit here, because first- and second-semester measures are strongly related. |
-| Support Vector Machine | Very close second: accuracy 0.7605, MCC 0.6025, and the highest AUC (0.8985, only 0.0003 above Logistic Regression). The RBF kernel captures non-linear structure, but it brings no real gain over the linear model on this data and is slower to train. |
-| **Overall winner for this dataset** | **Logistic Regression.** It leads on accuracy, precision, recall, F1 and MCC, and ties for the best AUC. Because the Enrolled class is only about 18% of the data, weighted F1 and MCC matter more than accuracy alone, and it wins on both. SVM is a close runner-up. |
+| Logistic Regression | Did the best overall. It has the highest accuracy (76.7%), F1 (0.756) and MCC (0.614). It is a simple model and trains very fast, but it works well on this data. |
+| Decision Tree | Accuracy is 72%, which is okay, but its AUC (0.827) is the lowest of all five models. I limited the depth to 8 so it does not just memorise the training data. It is easy to explain, but less accurate than Logistic Regression and SVM. |
+| KNN | Accuracy 71.5% and F1 0.699, so it sits in the middle. The data has many columns that became 0/1 columns after encoding, which probably makes "nearest neighbour" less meaningful and hurts KNN here. |
+| Naive Bayes | The weakest model. With default settings its accuracy was only 24%. I fixed this by tuning one setting (var_smoothing = 0.1) using cross-validation on the training data only, which raised accuracy to 68.9%. It is still the lowest (MCC 0.487). It treats every feature as independent, which is not true here, for example first and second semester marks are closely related. |
+| Support Vector Machine | Very close to Logistic Regression: accuracy 76.1%, MCC 0.603, and the highest AUC (0.8985, only 0.0003 more than Logistic Regression). It takes longer to train and gave no real improvement over the simpler model. |
+| **Overall winner for this dataset** | **Logistic Regression.** It is best on accuracy, precision, recall, F1 and MCC. Only about 18% of students are in the "Enrolled" group, so I looked at F1 and MCC and not just accuracy, and Logistic Regression leads on those too. SVM is a close second. |
 
 ## Streamlit App
 - **Live app:** <https://studentdropoutclassifier-5gxenasqqhyg2qurs4jyy4.streamlit.app/>
